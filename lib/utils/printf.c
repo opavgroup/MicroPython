@@ -56,6 +56,7 @@ int putchar(int c);
 int puts(const char *s);
 int vsnprintf(char *str, size_t size, const char *fmt, va_list ap);
 int snprintf(char *str, size_t size, const char *fmt, ...);
+int sprintf(char *str, const char *fmt, ...);
 
 int printf(const char *fmt, ...) {
     va_list ap;
@@ -125,6 +126,15 @@ int vsnprintf(char *str, size_t size, const char *fmt, va_list ap) {
 int snprintf(char *str, size_t size, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
+    int ret = vsnprintf(str, size, fmt, ap);
+    va_end(ap);
+    return ret;
+}
+
+int sprintf(char *str, const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    size_t size =  ((size_t) -1) >> 1;
     int ret = vsnprintf(str, size, fmt, ap);
     va_end(ap);
     return ret;

@@ -79,6 +79,7 @@ void *memmove(void *dest, const void *src, size_t n) {
     }
 }
 
+#if 0 // HSB 20210711 <
 void *memset(void *s, int c, size_t n) {
     if (c == 0 && ((uintptr_t)s & 3) == 0) {
         // aligned store of 0
@@ -101,6 +102,7 @@ void *memset(void *s, int c, size_t n) {
     }
     return s;
 }
+#endif // HSB 20210711 >
 
 int memcmp(const void *s1, const void *s2, size_t n) {
     const uint8_t *s1_8 = s1;

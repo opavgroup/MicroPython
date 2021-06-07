@@ -44,7 +44,14 @@ MKDIR = mkdir
 SED = sed
 CAT = cat
 TOUCH = touch
+# HSB 20200521 <
+# https://stackoverflow.com/questions/714100/os-detecting-makefile
+ifeq ($(OS),Windows_NT)
+PYTHON = python
+else
 PYTHON = python3
+endif
+# HSB 20200521 >
 
 AS = $(CROSS_COMPILE)as
 CC = $(CROSS_COMPILE)gcc

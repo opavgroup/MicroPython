@@ -168,9 +168,12 @@ mp_obj_t mp_make_function_from_raw_code(const mp_raw_code_t *rc, mp_obj_t def_ar
             }
             break;
         #endif
-        #if MICROPY_EMIT_INLINE_ASM
         case MP_CODE_NATIVE_ASM:
+        #if MICROPY_EMIT_INLINE_ASM
             fun = mp_obj_new_fun_asm(rc->n_pos_args, rc->fun_data, rc->type_sig);
+            break;
+        #else
+            mp_raise_msg(&mp_type_RuntimeError, "inline assembler is not allowed");
             break;
         #endif
         default:

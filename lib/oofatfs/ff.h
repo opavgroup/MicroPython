@@ -30,6 +30,9 @@
 extern "C" {
 #endif
 
+#ifndef FFCONF_H // HSB 20200521 <
+#define FFCONF_H "ffconf.h"
+#endif // HSB 20200521 >
 #include FFCONF_H       /* FatFs configuration options */
 
 #if FF_DEFINED != FFCONF_DEF

@@ -114,9 +114,16 @@ DRESULT disk_ioctl (
         [GET_SECTOR_COUNT] = MP_BLOCKDEV_IOCTL_BLOCK_COUNT,
         [GET_SECTOR_SIZE] = MP_BLOCKDEV_IOCTL_BLOCK_SIZE,
         [IOCTL_INIT] = MP_BLOCKDEV_IOCTL_INIT,
+        [IOCTL_STATUS] = MP_BLOCKDEV_IOCTL_STATUS, // HSB 20200521
+        [CTRL_TRIM] = MP_BLOCKDEV_IOCTL_TRIM, // HSB 20200521
     };
     uint8_t bp_op = op_map[cmd & 7];
     mp_obj_t ret = mp_const_none;
+    if (bp_op == MP_BLOCKDEV_IOCTL_TRIM) // HSB 20200521 <
+    {
+        uintptr_t arg = ((uint32_t*)buff)[0] << 16 | ((uint32_t*)buff)[1];
+        ret = mp_vfs_blockdev_ioctl(&vfs->blockdev, bp_op, arg);
+    } else  // HSB 20200521 >
     if (bp_op != 0) {
         ret = mp_vfs_blockdev_ioctl(&vfs->blockdev, bp_op, 0);
     }
@@ -161,6 +168,10 @@ DRESULT disk_ioctl (
             *((DSTATUS *)buff) = stat;
             return RES_OK;
         }
+
+        case CTRL_TRIM: // HSB 20200521 <
+            *((DRESULT*)buff) = 0; // we don't care for trim return code
+            return RES_OK;  // HSB 20200521 >
 
         default:
             return RES_PARERR;

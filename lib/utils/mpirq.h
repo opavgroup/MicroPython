@@ -61,6 +61,8 @@ typedef struct _mp_irq_obj_t {
     mp_obj_base_t base;
     mp_irq_methods_t *methods;
     mp_obj_t parent;
+    mp_obj_t param; // HSB 20200521
+    mp_obj_t param_child; // HSB 20200521
     mp_obj_t handler;
     bool ishard;
 } mp_irq_obj_t;

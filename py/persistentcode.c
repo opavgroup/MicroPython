@@ -842,7 +842,7 @@ void mp_raw_code_save_file(mp_raw_code_t *rc, const char *filename) {
 }
 
 #else
-#error mp_raw_code_save_file not implemented for this platform
+//#error mp_raw_code_save_file not implemented for this platform // HSB 20200521
 #endif
 
 #endif // MICROPY_PERSISTENT_CODE_SAVE

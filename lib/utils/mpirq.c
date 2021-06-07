@@ -67,7 +67,8 @@ void mp_irq_handler(mp_irq_obj_t *self) {
             gc_lock();
             nlr_buf_t nlr;
             if (nlr_push(&nlr) == 0) {
-                mp_call_function_1(self->handler, self->parent);
+              //mp_call_function_1(self->handler, self->parent); // HSB 20200521
+                mp_call_function_1(self->handler, self->param); // HSB 20200521
                 nlr_pop();
             } else {
                 // Uncaught exception; disable the callback so that it doesn't run again
@@ -79,7 +80,8 @@ void mp_irq_handler(mp_irq_obj_t *self) {
             gc_unlock();
         } else {
             // Schedule call to user function
-            mp_sched_schedule(self->handler, self->parent);
+    	  //mp_sched_schedule(self->handler, self->parent); // HSB 20200521
+            mp_sched_schedule(self->handler, self->param); // HSB 20200521
         }
     }
 }

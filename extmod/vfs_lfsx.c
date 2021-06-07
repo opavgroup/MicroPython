@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
+#if MICROPY_VFS_LFS1 == 1 || MICROPY_VFS_LFS2 == 1
 #include <stdio.h>
 #include <string.h>
 
@@ -33,6 +33,7 @@
 #include "py/objarray.h"
 #include "py/objstr.h"
 #include "py/mperrno.h"
+
 #include "extmod/vfs.h"
 
 STATIC int MP_VFS_LFSx(dev_ioctl)(const struct LFSx_API (config) * c, int cmd, int arg, bool must_return_int) {
@@ -469,3 +470,4 @@ const mp_obj_type_t MP_TYPE_VFS_LFSx = {
     .protocol = &MP_VFS_LFSx(proto),
     .locals_dict = (mp_obj_dict_t *)&MP_VFS_LFSx(locals_dict),
 };
+#endif
